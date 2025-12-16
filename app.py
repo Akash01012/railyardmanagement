@@ -1,29 +1,29 @@
 import streamlit as st
 import subprocess
-import time
 
-st.set_page_config(page_title="RailYard Protocol", layout="centered")
+st.set_page_config(page_title="🚆 RailYard Protocol Simulation", layout="wide")
 st.title("🚆 RailYard Protocol Simulation")
 
+st.write("Press the button below to run the RailYard simulation:")
+
+# Button to run simulation
 if st.button("Run Simulation"):
-    st.text("Running protocol...\n")
+    st.write("Running protocol...")
 
-    output_box = st.empty()  # placeholder for live output
-    full_output = ""
-
+    # Use subprocess to run main_file.py and capture output line by line
     process = subprocess.Popen(
-        ["python", "main_file.py"],  # <-- your existing CLI script
+        ["python", "main_file.py"],
         stdout=subprocess.PIPE,
         stderr=subprocess.STDOUT,
-        text=True,
-        bufsize=1,
+        text=True
     )
 
+    # Stream output to Streamlit in real-time
+    output_placeholder = st.empty()
+    full_output = ""
     for line in process.stdout:
         full_output += line
-        output_box.text(full_output)
-        time.sleep(0.05)  # optional: smooth scrolling
-
-    process.stdout.close()
+        output_placeholder.text(full_output)
+    
     process.wait()
     st.success("Simulation Finished ✅")
