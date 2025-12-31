@@ -3,10 +3,9 @@ import subprocess
 
 st.set_page_config(page_title="🚆 RailYard Protocol Simulation", layout="wide")
 
-if st.experimental_get_query_params().get("ping"):
+if st.query_params.get("ping"):
     st.write("OK")
     st.stop()
-
 st.title("🚆 RailYard Protocol Simulation")
 
 st.write("Press the button below to run the RailYard simulation:")
